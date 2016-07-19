@@ -1,3 +1,5 @@
+import random as r
+
 questions = {
     "strong": "Do ye like yer drinks strong?",
     "salty": "Do ye like it with a salty tang?",
@@ -15,18 +17,41 @@ ingredients = {
 }
 
 
-customer_answer = {}
 
+preferences = {}
 def drink_style():
-    #insert comment here
-
+    # grabs key value pair from questions dict and finds
+    # out what the customer likes to drink
     for key, value in questions.items():
         question = raw_input(value + " ")
         if (question.lower() == 'yes') or (question.lower() == 'y'):
-            customer_answer[key] = True
+            preferences[key] = True
         else:
-            customer_answer[key] = False
+            preferences[key] = False
             
-drink_style()
 
-print(customer_answer)
+def concoct(preferences):
+    #finds key value pair in preferences func
+    # and makes a drink based on their liking
+    drink_type = []
+    for key, value in preferences.items():
+        if value != True:
+            continue
+        else:
+            drink_type.append(r.choice(ingredients[key]))
+    
+    return drink_type 
+
+def main():
+    # call both drink_style and concoct
+    drink_style()
+    drink = concoct(preferences)
+            
+    print(" ")
+    print("The ingredients are as followed:")
+    for ingredient in drink:
+        print("{}".format(ingredient))
+
+if __name__ == '__main__':
+    main()  
+
